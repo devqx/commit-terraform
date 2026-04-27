@@ -46,20 +46,22 @@ module "aws_auth" {
 }
 
 module "efs" {
-  source = "../../modules/efs"
-  subnet_id = module.vpc_mod.private_subnet_ids[1]
+  source                 = "../../modules/efs"
+  subnet_id              = module.vpc_mod.private_subnet_ids[1]
   node_security_group_id = module.eks_mod.node_security_group_id
+  vpc_id                 = module.vpc_mod.vpc_id
+  vpc_cidr               = "20.100.0.0/16"
 }
 
 module "install_tooling" {
   source = "../../modules/tools"
   cluster_name = "prod_eks_cluster"
   region = "eu-north-1"
-  acm_ssl_cert_arn = "arn:aws:acm:eu-north-1:316336724953:certificate/79273ed8-2f41-46bd-9ff0-d63bb410214d"
+  acm_ssl_cert_arn = ""
   cidr_block = "20.100.0.0/16"
-  ca_role_arn = "arn:aws:iam::316336724953:role/EC2ClusterAutoScalerRole"
-  git_username = "git_username"
-  git_password = "git_password"
+  ca_role_arn = ""
+  git_username = ""
+  git_password = ""
   efs_filesystem_id = module.efs.efs_id
   oidc_provider_arn = ""
   aws_efs_role_arn = ""

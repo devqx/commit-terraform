@@ -52,11 +52,15 @@ resource "kubectl_manifest" "create-argocd-repo-credentials" {
 
 }
 
-resource "kubectl_manifest" "create-argocd-repo-repositories" {
-  yaml_body = templatefile("${path.module}/manifests/argocd/repositories.yml", {
+resource "kubectl_manifest" "create-argocd-helm-charts-repository" {
+  yaml_body = templatefile("${path.module}/manifests/argocd/add-helm-charts-repository.yml", {
     git_username = var.git_username
     git_password = var.git_password
   })
+}
+
+resource "kubectl_manifest" "create-argocd-git-apps-repository" {
+  yaml_body = file("${path.module}/manifests/argocd/add-git-apps-repository.yml")
 }
 
 resource "kubectl_manifest" "create-argocd-ingress" {

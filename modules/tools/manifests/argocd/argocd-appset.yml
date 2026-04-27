@@ -9,15 +9,15 @@ spec:
       repoURL: "https://github.com/devqx/commit-argocd.git"
       revision: main
       files:
-        - path: "apps/prod/"
+        - path: "apps/prod-cluster/"
   template:
     metadata:
       name: '{{name}}'
     spec:
-      project: '{project}}'
+      project: '{{project}}'
       source:
-        chart: commit-apps-chart
-        repoURL: "https://raw.githubusercontent.com/devqx/commit-helm-charts/gh-pages"
+        chart: '{{chart}}'
+        repoURL: "https://devqx.github.io/commit-helm-charts"
         targetRevision: 0.1.0
         helm:
           values: |-

@@ -19,3 +19,10 @@ variable "subnet_id" {
 variable "node_security_group_id" {
   type = string
 }
+
+variable "vpc_id" {
+  type = string
+}
+variable "vpc_cidr" {
+  type = string
+}
